@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using JwtWebAPI.Models;
 using JwtWebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JwtWebAPI.Controllers
 {
