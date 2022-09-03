@@ -17,6 +17,12 @@ namespace JwtWebAPI.Controllers
             _authService = authService;
         }
 
+        [HttpGet,Authorize]
+        public ActionResult<string> GetMe()
+        {
+            var userName = _authService.GetMyName();
+            return userName;
+        }
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
         {

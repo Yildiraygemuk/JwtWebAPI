@@ -11,12 +11,21 @@ namespace JwtWebAPI.Services
     {
         public static User user = new();
         private readonly IConfiguration _configuration;
-
-        public AuthService(IConfiguration configuration)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public AuthService(IConfiguration configuration, IHttpContextAccessor contextAccessor)
         {
             _configuration = configuration;
+            _contextAccessor = contextAccessor;
         }
-
+        public string GetMyName()
+        {
+            var result = string.Empty;
+            if(_contextAccessor.HttpContext != null)
+            {
+                result = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            }
+            return result;
+        }
         public User Register(UserDto request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
